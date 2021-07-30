@@ -40,7 +40,8 @@ class PinsController extends AbstractController
         {
             $em->persist($pin);
             $em->flush();
-            return $this->redirectToRoute('pins.show', ['id' => $pin->getId()]);
+            // return $this->redirectToRoute('pins.show', ['id' => $pin->getId()]);
+            return $this->redirectToRoute('home');
         }
 
 
@@ -75,7 +76,8 @@ class PinsController extends AbstractController
         {
             $em->flush();
 
-            return $this->redirectToRoute('pins.show', ['id' => $pin->getId()]);
+            // return $this->redirectToRoute('pins.show', ['id' => $pin->getId()]);
+            return $this->redirectToRoute('home');
         }
 
 
@@ -86,5 +88,16 @@ class PinsController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/pins/{id<[0-9]+>}/delete", name="pins.delete", methods={"DELETE"})
+     */
+    public function delete(EntityManagerInterface $em, Pin $pin): Response
+    {
+        $em->remove($pin);            
+        $em->flush();
+
+        return $this->redirectToRoute('home');
+    }
 
 }
