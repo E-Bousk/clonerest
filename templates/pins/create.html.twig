@@ -6,9 +6,6 @@
 
     <h1>Create Pin</h1>
 
-    {{ form_start(monFormulaire) }}
-        {{ form_widget(monFormulaire) }}
-        <input type="submit" value="Create Pin" formnovalidate>
-    {{ form_end(monFormulaire) }}
-
+   {{ include('pins/_form.html.twig') }}
+   
 {% endblock %}
