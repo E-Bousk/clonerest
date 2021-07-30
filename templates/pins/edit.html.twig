@@ -3,9 +3,11 @@
 {% block title 'Edit pin #' ~ pin.id %}
 
 {% block body %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1>Edit Pin #{{ pin.id }}</h1>
 
-    <h1>Edit Pin #{{ pin.id }}</h1>
-
-   {{ include('pins/_form.html.twig', {submitButtonText: 'Edit pin'}) }}
-
+            {{ include('pins/_form.html.twig', {submitButtonText: 'Edit pin'}) }}
+        </div>
+    </div>
 {% endblock %}
