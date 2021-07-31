@@ -44,7 +44,6 @@ class Pin
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="pin_image", fileNameProperty="imageName")
-     * @Assert\Image(maxSize="500k", maxSizeMessage="The file {{ name }} is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}")
      * 
      * 
      * @var File|null
