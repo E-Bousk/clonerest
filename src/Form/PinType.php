@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Pin;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PinType extends AbstractType
@@ -12,21 +13,30 @@ class PinType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ->add('title')
-            // ->add('description')
-            // ->add('createdAt')
-            // ->add('updatedAt')
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image (JPG or PNG file)',
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'Delete ?',
+                'download_label' => 'Download file',
+                'download_uri' => true,
+                'image_uri' => true,
+                // 'imagine_pattern' => '...',
+                'asset_helper' => true,
+            ])
             ->add('title', null, [
                 'attr' => [
                     'autofocus' => true,
-                    'placeholder' => "placeholder : message ici"]
+                    'placeholder' => "placeholder : message ici"
+                ]
                 // 'required' => false
-                ])
+            ])
             ->add('description', null, [
                 'attr' => [
                     'rows' => '5',
-                    'cols' => '30',  
-                ]])
+                    'cols' => '30',
+                ]
+            ])
         ;
     }
 
