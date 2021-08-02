@@ -95,7 +95,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
         // https://github.com/symfony/symfony/issues/38700
-        $request->getSession()->getFlashBag()->add('success', 'Logged in successfully');
+        $request->getSession()->getFlashBag()->add('success', 'Welcome back ' . $token->getUser()->getFullName() . ' !');
 
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
