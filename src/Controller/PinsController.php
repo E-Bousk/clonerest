@@ -33,7 +33,6 @@ class PinsController extends AbstractController
 
         $form= $this->createForm(PinType::class, $pin);
 
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
@@ -48,12 +47,10 @@ class PinsController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-
         return $this->render('pins/create.html.twig', [
             'monFormulaire' => $form->createView(),
         ]);
     }
-
 
     /**
      * @Route("/pins/{id<[0-9]+>}", name="pins.show", methods={"GET"})
@@ -62,8 +59,6 @@ class PinsController extends AbstractController
     {
         return $this->render('pins/show.html.twig', compact('pin'));
     }
-
-
 
    /**
      * @Route("/pins/{id<[0-9]+>}/edit", name="pins.edit", methods={"GET", "PUT"})
