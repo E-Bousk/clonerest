@@ -208,8 +208,19 @@ class User implements UserInterface
 
         return $this;
     }
-
-
+    
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+    
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+        
+        return $this;
+    }
+    
     /**
      * 
      * Return firstName and lastName of User
@@ -220,16 +231,16 @@ class User implements UserInterface
         return $this->getfirstName() . ' ' . $this->getlastName();
     }
 
-    public function isVerified(): bool
+    /**
+     * Return gravatar of User
+     * https://en.gravatar.com/
+     */
+    public function getGravatarUrl(?int $size= 100): ?string
     {
-        return $this->isVerified;
-    }
+        $email= md5(strtolower(trim($this->getEmail())));
+        // return "https://www.gravatar.com/avatar/". $email . "?s=" . $size;
+        return sprintf("https://www.gravatar.com/avatar/%s?s=%d", $email, $size);
 
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
     }
 
 }
