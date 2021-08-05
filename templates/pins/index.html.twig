@@ -16,11 +16,17 @@
                                 </a>
                             </div>
                             <h2 class="h5 pl-3 pt-3"><a class="text-decoration-none text-secondary" href="{{ path('pins.show', {id: pin.id}) }}">{{ pin.title }}</a></h2>
-                            {# <p>{{ pin.description|u.truncate(15, '...', false) }}</p> #}
-                            {# <p>Submitted {{ pin.createdAt|ago }}</p> #}
-                            <p class="pl-3 pb-3 text-muted">
-                                <small>Submitted by {{ pin.user.fullName }}</small>
+                            <p class="pl-3 pb-3 text-muted text-break">
+                                <small>Submitted by {{ pin.user.fullName }}
+                                <br>{{ pin.createdAt|ago }}</small>
+                                {# <br>{{ pin.description|u.truncate(20, '...', true) }} #}
                             </p>
+                            {# <a href="#" onclick="event.preventDefault(); confirm('Are you sure ?') 
+                                && document.getElementById('js-pin-delete-form-{{ pin.id }}').submit();" class="m-3 btn btn-danger">&times; Delete  {{ pin.title }}</a>
+                            <form id="js-pin-delete-form-{{ pin.id }}" action="{{ path('pins.delete', {id: pin.id}) }}" method="POST" style="display: none;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token('pin.deletion' ~ pin.id) }}">
+                                <input type="hidden" name="_method" value="DELETE">
+                            </form>  #}
                         </article>
                     </div>
                 {% endfor %}
