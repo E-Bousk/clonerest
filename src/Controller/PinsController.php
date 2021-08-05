@@ -29,7 +29,7 @@ class PinsController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em): Response
     {
         $pin= new Pin;
-        $pin->setDescription('Description ');
+        $pin->setDescription('Lorem, ipsum dolor sit amet consectetur.');
 
         $form= $this->createForm(PinType::class, $pin);
 

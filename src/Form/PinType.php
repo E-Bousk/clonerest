@@ -27,13 +27,13 @@ class PinType extends AbstractType
             ->add('title', null, [
                 'attr' => [
                     'autofocus' => true,
-                    'placeholder' => "placeholder : message ici"
+                    'placeholder' => "Ici : message du placeholder"
                 ]
                 // 'required' => false
             ])
             ->add('description', null, [
                 'attr' => [
-                    'rows' => '5',
+                    'rows' => '3',
                     'cols' => '30',
                 ]
             ])

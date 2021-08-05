@@ -23,7 +23,11 @@ security:
                     - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
-                target: home
+                # target: home
+                csrf_token_generator: Symfony\Component\Security\Csrf\CsrfTokenManagerInterface
+
+
+
             remember_me:
                 secret: '%kernel.secret%'
             
