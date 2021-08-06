@@ -19,6 +19,7 @@ class ChangePasswordFormType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options' => [
                     'attr' => ['autocomplete' => 'new-password'],
+                    'label' => 'New password',
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Please enter a password',
@@ -30,7 +31,6 @@ class ChangePasswordFormType extends AbstractType
                             'max' => 4096,
                         ]),
                     ],
-                    'label' => 'New password',
                 ],
                 'second_options' => [
                     'attr' => ['autocomplete' => 'new-password'],
