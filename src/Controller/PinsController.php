@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PinsController extends AbstractController
@@ -25,6 +26,7 @@ class PinsController extends AbstractController
 
     /**
      * @Route("/pins/create", name="pins.create", methods={"GET", "POST"})
+     * @IsGranted("PIN_CREATE")
      */
     public function create(Request $request, EntityManagerInterface $em): Response
     {
@@ -62,6 +64,7 @@ class PinsController extends AbstractController
 
    /**
      * @Route("/pins/{id<[0-9]+>}/edit", name="pins.edit", methods={"GET", "PUT"})
+     * @IsGranted("PIN_MANAGE", subject="pin", message="you cannot edit this pin")
      */
     public function edit(Request $request, EntityManagerInterface $em, Pin $pin): Response
     {
@@ -95,6 +98,8 @@ class PinsController extends AbstractController
      */
     public function delete(Request $request, EntityManagerInterface $em, Pin $pin): Response
     {
+        $this->denyAccessUnlessGranted('PIN_MANAGE', $pin, 'You cannot delete this pin');
+
         if ($this->isCsrfTokenValid('pin.deletion'. $pin->getId(), $request->get('csrf_token')))
         {
             $em->remove($pin);            
@@ -102,7 +107,6 @@ class PinsController extends AbstractController
 
             $this->addFlash('info', 'Pin successfully deleted');
         }
-
 
         return $this->redirectToRoute('home');
     }
