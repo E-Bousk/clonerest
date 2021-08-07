@@ -14,12 +14,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/account")
- * @IsGranted("ROLE_USER")
  */
 class AccountController extends AbstractController
 {
     /**
      * @Route("", name="app_account", methods="GET")
+     * @IsGranted("ROLE_USER")
      */
     public function show(): Response
     {
@@ -27,13 +27,16 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/edit", name="app_account_edit", methods={"GET", "POST"})
+     * @Route("/edit", name="app_account_edit", methods={"GET", "PATCH"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function edit(EntityManagerInterface $em, Request $request): Response
     {
         $user= $this->getUser();
 
-        $form= $this->createForm(UserFormType::class, $user);
+        $form= $this->createForm(UserFormType::class, $user, [
+            'method' => 'PATCH'
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) 
@@ -49,14 +52,17 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/change-password", name="app_account_change_password", methods={"GET", "POST"})
+     * @Route("/change-password", name="app_account_change_password", methods={"GET", "PATCH"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function changePassword(EntityManagerInterface $em, Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user= $this->getUser();
         $form= $this->createForm(ChangePasswordFormType::class, null, [
-            'current_password_is_required' => true
+            'current_password_is_required' => true,
+            'method' => 'PATCH'
         ]);
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) 

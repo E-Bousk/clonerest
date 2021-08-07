@@ -14,7 +14,7 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
+        if ($this->getUser() && !$this->isGranted("IS_REMEMBERED")) {
             $this->addFlash('error', 'Already logged in !');
             return $this->redirectToRoute('home');
         }
