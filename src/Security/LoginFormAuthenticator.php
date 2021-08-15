@@ -125,7 +125,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        $request->getSession()->getFlashBag()->add('error', 'You need to log in first !');
+        // $request->getSession()->getFlashBag()->add('error', 'You need to log in first !');
+        $this->flashBag->add('error', 'You need to log in first !');
+
         $url = $this->getLoginUrl();
 
         return new RedirectResponse($url);
